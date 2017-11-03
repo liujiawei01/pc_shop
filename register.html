@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>注册页</title>
+		<link rel="stylesheet" type="text/css" href="css/register.css" />
+	</head>
+
+	<body>
+		<div id="Top">
+			<img src="img/3689011044770542070.png" />
+			<a class="xj">仙剑购物</a>
+			<ul>
+				<span class="login">
+					<li ><a href="login.html">登录</a></li>
+				    <li ><a href="register.html">注册</a></li>
+				</span>
+				<div id="lis">
+					<li class="zx">注销</li>
+					<li>
+						<a href="cart.html">购物车</a>
+					</li>
+					<li>我的消息</li>
+				</div>
+			</ul>
+		</div>
+
+		<div id="box">
+			<img src="img/3689011044770542070.png" />
+			<p id="p1">
+				<a>用户名：<input type="text" name="username" id="zh" /></a>
+				<span class="sucess">用户名可已使用</span>
+				<span class="error">用户名已被占用，请重新输入</span>
+			</p>
+			<p id="p2">
+				<a>密码：<input type="password" name="password" id="mima" /></a>
+				<!--<span class="sucess">用户名可已使用</span>
+			<span class="error">用户名已被占用，请重新输入</span>-->
+			</p>
+
+			<input type="button" id="reg" value="注册" />
+			<p id="on">
+				<a href="login.html">登录</a>
+			</p>
+			<p id="imgs"><img src="img/2.png" /></p>
+		</div>
+		<div id="down">
+			<div id="erwei">
+				<img src="img/QQ图片20170818184442.png" />
+				<a>iPhone客户端下载</a>
+			</div>
+			<div id="ma">
+				<img src="img/QQ图片20170818185729.png" />
+			</div>
+			<img id="xian" src="img/logo.png" />
+			<p>
+				仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+			</p>
+		</div>
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//判断当前用户已则注册显示用户名，否则显示注册登录
+
+			if(localStorage.getItem("token")) {
+				$("body").html(localStorage.getItem("username") + "您已经注册成功！请不要重复注册");
+
+				setTimeout(function() {
+					location.href = "index.html";
+				}, 2000);
+			}
+
+			//点击按钮事件
+			$("#reg").click(function() {
+				var username = $("input[name='username']").val();
+				var password = $("input[name='password']").val();
+				console.log(username, password);
+				//判断密码位数
+				if(password == '') {
+					alert("请输入密码");
+					return;
+				}
+				if(password.length < 6 || password.length > 20) {
+					alert("请输入6到20位的密码");
+					return;
+				}
+
+				$.ajax({
+					"type": "POST",
+					"url": "http://h6.duchengjiu.top/shop/api_user.php",
+					"data": {
+						"status": "register",
+						"username": username,
+						"password": password,
+					},
+					"dataType": "json",
+					"success": function(data) {
+						console.log(data);
+						alert(data.message);
+						window.location.href = "login.html";
+					}
+				})
+			})
+			//用ajax判断用户名是否重复!
+			//			如果不重复提示用户可以使用
+			//			重复提示用户名重复!
+
+			//用户名的验证
+			$("#zh").blur(function() {
+				var username = $("input[name='username']").val();
+				$.ajax({
+					"type": "POST",
+					"url": "http://h6.duchengjiu.top/shop/api_user.php",
+					"data": {
+						"status": "check",
+						"username": username,
+					},
+					"dataType": "json",
+					"success": function(data) {
+						//					console.log(data);
+						var obj = data;
+						console.log(obj)
+						//						console.log(obj.code)
+						if(obj.code == 2001) {
+							$(".error").css("display", "block");
+							$(".sucess").css("display", "none");
+						} else if(obj.code == 0) {
+							$(".sucess").css("display", "block");
+							$(".error").css("display", "none");
+						}
+					}
+				})
+			})
+			//背景定位
+			function move(a, b) {
+				var body = document.body;
+				var newleft = 0;
+				var newtop = 0;
+				var timer = null;
+
+				setInterval(function() {
+					newleft += a;
+					newtop += b;
+					if(newleft >= 800 || newleft <= 0) {
+						a = -a
+					}
+					if(newtop > 900 || newtop <= 0) {
+						b = -b
+					}
+					body.style.backgroundPositionX = -newleft + "px";
+					body.style.backgroundPositionY = -newtop + "px";
+				}, 50)
+			}
+			move(1, 1);
+			//主页跳转
+			$(".xj").click(function() {
+				location.href = "index.html"
+			})
+
+			//二维码效果
+			$("#erwei").mouseenter(function() {
+				$("#ma").css("display", "block");
+			})
+			$("#erwei").mouseleave(function() {
+				$("#ma").css("display", "none");
+			})
+		</script>
+	</body>
+
+</html>

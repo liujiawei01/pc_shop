@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>商品陈列</title>
+		<link rel="stylesheet" type="text/css" href="css/paning.css"/>
+	</head>
+
+	<body>
+
+		<body>
+
+			<div id="Top">
+				<img src="img/3689011044770542070.png" />
+				<a class="xj">仙剑购物</a>
+				<ul>
+					<span class="login">
+					<li ><a href="login.html">登录</a></li>
+				    <li ><a href="register.html">注册</a></li>
+				</span>
+					<div id="lis">
+						<li class="zx">注销</li>
+						<li>
+							<a href="cart.html">购物车</a>
+						</li>
+						<li>我的消息</li>
+					</div>
+
+				</ul>
+			</div>
+
+			<div id="hidden">
+				展开
+			</div>
+			<div id="cebian">
+				<p>
+					<a href="index.html">主页</a>
+				</p>
+				<p>
+					<a href="list.html">列表页</a>
+				</p>
+				<p>
+					<a href="paning.html">分页展示</a>
+				</p>
+
+			</div>
+			<ul class="shop" id="shop">
+
+			</ul>
+			<a class="backtotop" id="backtotop">回到顶部</a>
+			<div class="button" id="button">
+				<em id="ButtonPrev">上一页</em>
+
+				<div class="button-center">
+					<div id="ButtonCenter"></div>
+				</div>
+
+				<em id="ButtonNext">下一页</em>
+			</div>
+			<div id="down">
+				<div id="erwei">
+					<img src="img/QQ图片20170818184442.png" />
+					<a>iPhone客户端下载</a>
+				</div>
+				<div id="ma">
+					<img src="img/QQ图片20170818185729.png" />
+				</div>
+				<img id="xian" src="img/logo.png" />
+				<p>
+					仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+				</p>
+			</div>
+			<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				var page = 1;
+
+				function showShop(page) {
+					$.ajax({
+						"url": "http://h6.duchengjiu.top/shop/api_goods.php?page=" + page + "&pagesize=20",
+						"type": "GET",
+						"dataType": "json",
+						"success": function(response) {
+							console.log(response);
+							//添加分页
+							for(var j = 0; j < response.page.page_count; j++) {
+								$("#ButtonCenter").append($('<span>' + (j + 1) + '</span>'));
+							}
+
+							//添加展示的商品数据
+							var obj = response;
+							for(var i = 0; i < obj.data.length; i++) {
+
+								$("#shop").append('<li><img src="' + obj.data[i].goods_thumb + '" /><p><a href="detal.html?goods_id=' + obj.data[i].goods_id + '">' + obj.data[i].goods_name + '</a></p><p>' + obj.data[i].goods_desc +
+									'</p><p class="price">￥' + obj.data[i].price + '</p></li>');
+
+							}
+
+							$(".shop li").mouseenter(function() {
+
+								$(this).append("<div id='hezi'></div>");
+
+							})
+							$(".shop li").mouseleave(function() {
+								$(this).children("#hezi").remove();
+							})
+						}
+					})
+				}
+				showShop(page);
+
+				//上一页
+				$("#ButtonPrev").click(function() {
+					//信号量改变
+					page--;
+					//范围
+					if(page <= 1) page = 1;
+					//清空商品数据，防止累积
+					$("#shop").html('');
+					//调用ajax 传入信号量改变内容
+					showShop(page);
+					//让分页进行移动
+					ButtonCenter.style.marginLeft = (page - 1) * -52 + "px";
+				})
+				//下一页
+				$("#ButtonNext").click(function() {
+					page++;
+					$("#shop").html('');
+					showShop(page);
+					ButtonCenter.style.marginLeft = (page - 1) * -52 + "px";
+				})
+
+				//分页的点击事件
+				$("#ButtonCenter").click(function(event) {
+					event = event || window.event;
+					var target = event.target || event.srcElement;
+					//				console.log(target.nodeName)
+					if(target.nodeName === "SPAN") {
+						//得到当前分页的内容，存入信号量
+						page = target.innerText;
+						$("#shop").html('');
+						ButtonCenter.style.marginLeft = (page - 1) * -52 + "px";
+						showShop(page);
+
+					}
+
+				})
+				//背景定位
+				function move(a, b) {
+					var body = document.body;
+					var newleft = 0;
+					var newtop = 0;
+					var timer = null;
+
+					setInterval(function() {
+						newleft += a;
+						newtop += b;
+						if(newleft >= 800 || newleft <= 0) {
+							a = -a
+						}
+						if(newtop > 900 || newtop <= 0) {
+							b = -b
+						}
+						body.style.backgroundPositionX = -newleft + "px";
+						body.style.backgroundPositionY = -newtop + "px";
+					}, 50)
+				}
+				move(1, 1);
+				//返回顶部
+				$("#backtotop").click(function() {
+					$("html,body").animate({ //对象变成了$(“html,body”)
+						"scrollTop": 0 //变成了属性
+					}, 1000);
+
+				})
+
+				//二维码效果
+				$("#erwei").mouseenter(function() {
+					$("#ma").css("display", "block");
+				})
+				$("#erwei").mouseleave(function() {
+					$("#ma").css("display", "none");
+				})
+				//点击跳转首页
+				$(".xj").click(function() {
+					location.href = "index.html";
+
+				})
+
+				//侧边栏
+				$("#hidden").mouseenter(function() {
+					$("#cebian").slideDown(1500);
+				})
+				$("#hidden").mouseleave(function() {
+					$("#cebian").slideUp(1500);
+				})
+				
+			</script>
+
+		</body>
+
+</html>

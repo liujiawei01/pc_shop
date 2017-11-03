@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>订单详情页</title>
+		<link rel="stylesheet" type="text/css" href="css/order.css" />
+	</head>
+
+	<body>
+		<div id="Top">
+			<img src="img/3689011044770542070.png" />
+			<a class="xj">仙剑购物</a>
+			<ul>
+				<span class="login">
+					<li ><a href="login.html">登录</a></li>
+				    <li ><a href="register.html">注册</a></li>
+				</span>
+				<div id="lis">
+					<li class="zx">注销</li>
+					<li>
+						<a href="cart.html">购物车</a>
+					</li>
+					<li>我的消息</li>
+				</div>
+
+			</ul>
+		</div>
+		<a class="backtotop" id="backtotop">回到顶部</a>
+		<div id="float">
+			<h2>订单页</h2>
+			<div id="order-list">
+
+			</div>
+		</div>
+		<div id="down">
+			<div id="erwei">
+				<img src="img/QQ图片20170818184442.png" />
+				<a>iPhone客户端下载</a>
+			</div>
+			<div id="ma">
+				<img src="img/QQ图片20170818185729.png" />
+			</div>
+			<img id="xian" src="img/logo.png" />
+			<p>
+				仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+			</p>
+		</div>
+
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$.ajax({
+				"url": "http://h6.duchengjiu.top/shop/api_order.php?token=" + localStorage.token,
+				"type": "GET",
+				"dataType": "json",
+				"success": function(response) {
+					console.log(response);
+					if(response.code === 0) {
+						var html = '';
+						for(var i = 0; i < response.data.length; i++) {
+							var obj = response.data[i];
+							console.log(obj);
+							html += '<div class="order-item">';
+							html += '<div class="order-item-header">订单号：' + obj.order_id + '</div>';
+
+							for(var j = 0; j < obj.goods_list.length; j++) {
+								var goods = obj.goods_list[j];
+								goods.subtotal = goods.goods_price * goods.goods_number;
+
+								html += '<div class="order-content" data-id=' + goods.goods_id + '><img src="' +
+									goods.goods_thumb + '"/><div id="OP"><p> 商品名称:' +
+									goods.goods_name + '</p><p>商品单价:￥' +
+									goods.goods_price + '</p><p>商品个数:' +
+									goods.goods_number + '</p><p>商品总金额:￥' +
+									goods.subtotal + '</p></div></div>'
+
+							}
+							html += '</div>';
+						}
+						$("#order-list").html(html);
+					}
+				}
+
+			})
+
+			//背景定位
+			function move(a, b) {
+				var body = document.body;
+				var newleft = 0;
+				var newtop = 0;
+				var timer = null;
+
+				setInterval(function() {
+					newleft += a;
+					newtop += b;
+					if(newleft >= 800 || newleft <= 0) {
+						a = -a
+					}
+					if(newtop > 900 || newtop <= 0) {
+						b = -b
+					}
+					body.style.backgroundPositionX = -newleft + "px";
+					body.style.backgroundPositionY = -newtop + "px";
+				}, 50)
+			}
+			move(5, 3);
+			//点击跳转首页
+			$(".xj").click(function() {
+				location.href = "index.html";
+
+			})
+			//二维码
+			$("#erwei").mouseenter(function() {
+				$("#ma").css("display", "block");
+			})
+			$("#erwei").mouseleave(function() {
+				$("#ma").css("display", "none");
+			})
+
+			$("#backtotop").click(function() {
+				$("html,body").animate({ //对象变成了$(“html,body”)
+					"scrollTop": 0 //变成了属性
+				}, 1000);
+
+			})
+		</script>
+	</body>
+
+</html>

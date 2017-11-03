@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>结算中心</title>
+		<link rel="stylesheet" type="text/css" href="css/balance.css" />
+	</head>
+
+	<body>
+		<a class="backtotop" id="backtotop">回到顶部</a>
+		<div id="Top">
+			<img src="img/3689011044770542070.png" />
+			<a class="xj">仙剑购物</a>
+			<ul>
+				<span class="login">
+					<li ><a href="login.html">登录</a></li>
+				    <li ><a href="register.html">注册</a></li>
+				</span>
+				<div id="lis">
+					<li class="zx">注销</li>
+					<li>
+						<a href="cart.html">购物车</a>
+					</li>
+					<li>我的消息</li>
+				</div>
+
+			</ul>
+
+		</div>
+		<p id="logo">
+			<a>结算中心</a>
+		</p>
+		<p id="tip">填写并核对订单信息</p>
+		<div id="content">
+			<div id="consignee">
+				<div id="consignee_top">
+					<a id="shou">收货人信息</a>
+					<a id="address" class="newAddress">新增收货地址</a>
+				</div>
+				<ul class="address-ul" id="oul">
+					<!--'<li class="address-item" data-id="' +obj.address_id+ '">收货人：'
+								+obj.address_name 
+								+'  省份：'+obj.province 
+								+'  市：'+obj.city 
+								+'  地区：'+obj.district 
+								+'  街道：'+obj.address 
+								+'  手机号：'+obj.mobile 
+								+'</li>';-->
+				</ul>
+
+			</div>
+			<div id="pay">
+				<p id="way">支付方式</p>
+				<ul>
+					<li class="lis">货到付款</li>
+					<li class="lis">在线支付</li>
+					<li id="more">更多支付方式>>></li>
+				</ul>
+			</div>
+		</div>
+		<div id="add" class="add">
+			<span class="close">X</span>
+			<p id="tou">新建列表</p>
+			<form>
+				<p>收货人姓名：<input type="text" name="address_name" placeholder="请输入您的姓名" /></p>
+				<p id="shouji">手机号：<input type="text" name="mobile" placeholder="请输入您的手机号" /></p>
+				<p id="sheng">省份：<input type="text" name="province" placeholder="请输入您的省份" /></p>
+				<p id="shi">城市：<input type="text" name="city" placeholder="请输入您的市区" /></p>
+				<p id="qu">区县：<input type="text" name="district" placeholder="请输入您的区县" /></p>
+				<p id="dizhi">地址：<input type="text" name="address" placeholder="请输入您的地址" /></p>
+				<input type="button" id="btn" value="新建收货信息" />
+			</form>
+		</div>
+		<div id="sumbit">
+			<p id="Money">应付金额：Y2000</p>
+			<p id="order">
+				<a>提交订单</a>
+			</p>
+		</div>
+
+		<div id="down">
+			<div id="erwei">
+				<img src="img/QQ图片20170818184442.png" />
+				<a>iPhone客户端下载</a>
+			</div>
+			<div id="ma">
+				<img src="img/QQ图片20170818185729.png" />
+			</div>
+			<img id="xian" src="img/logo.png" />
+			<p>
+				仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+			</p>
+		</div>
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var address_id = 0;
+				addressAjax();
+
+				function addressAjax() {
+					$.ajax({
+						"url": "http://h6.duchengjiu.top/shop/api_useraddress.php?token=" + localStorage.token,
+						"type": 'GET',
+						"dataType": "json",
+						"success": function(response) {
+							console.log(response);
+							var htmlData = '';
+							for(var i = 0; i < response.data.length; i++) {
+								var obj = response.data[i];
+								htmlData += '<li class="address-item" data-id="' + obj.address_id + '">收货人：' +
+									obj.address_name +
+									'  省份：' + obj.province +
+									'  市：' + obj.city +
+									'  地区：' + obj.district +
+									'  街道：' + obj.address +
+									'  手机号：' + obj.mobile +
+									'<span class="remove">删除</span></li>';
+							}
+							$(".address-ul").html(htmlData);
+
+							//删除事件
+							$(".remove").click(function() {
+								$(this).parent().remove();
+								//调用ajax删除地址
+								var lis = $(this).parent()
+								removeAjax(lis);
+
+							})
+							//点击添加事件
+							$(".address-item").click(function(event) {
+								$(this).addClass("active").siblings().removeClass("active");
+								//								if(event.target) {
+								//									address_id = event.target.getAttribute('data-id');
+								//									console.log(address_id);
+								//								}
+								address_id = $(this).attr("data-id");
+								console.log(address_id);
+							})
+
+						}
+					});
+
+				}
+
+				//获取总金额
+
+				//	通过location.search获取get传参的数据 截取？后面的内容
+				var str = location.search.substr(1);
+				//用=分割得到总金额
+				var sum = str.split("=");
+				console.log(sum[1]);
+				$("#Money").html("您所付金额￥" + sum[1]);
+
+				$(".newAddress").click(function() {
+					$("#add").show();
+				})
+				$(".close").click(function() {
+					$("#add").hide();
+				})
+
+				$(".lis").click(function() {
+					$(this).css("background-color", "chartreuse");
+				})
+
+				//添加收货地址
+				$("#btn").click(function() {
+					var data = $("form").serialize();
+					console.log(data);
+					$.ajax({
+						"url": "http://h6.duchengjiu.top/shop/api_useraddress.php?token=" + localStorage.token + "&status=add",
+						"type": "POST",
+						"dataType": "json",
+						"data": data,
+						"success": function(response) {
+							if(response.code === 0) {
+								console.log(response);
+								$("#add").hide();
+								addressAjax();
+							}
+						}
+					});
+				})
+
+				//js背景定位	
+				function move(a, b) {
+					var box = document.getElementById("add");
+					var newleft = 0;
+					var newtop = 0;
+					var timer = null;
+
+					setInterval(function() {
+						newleft += a;
+						newtop += b;
+						if(newleft >= 1200 || newleft <= 0) {
+							a = -a
+						}
+						if(newtop > 800 || newtop <= 0) {
+							b = -b
+						}
+						box.style.backgroundPositionX = -newleft + "px";
+						box.style.backgroundPositionY = -newtop + "px";
+					}, 50)
+				}
+				move(1, 1);
+
+				//订单提交
+				$("#order").click(function(event) {
+
+					if(address_id == 0) {
+						alert("请选择收货地址后再下单");
+						return;
+					}
+					$.ajax({
+						"url": "http://h6.duchengjiu.top/shop/api_order.php?token=" + localStorage.token + "&status=add",
+						"type": "POST",
+						"dataType": "json",
+						"data": {
+							"address_id": address_id, //地址id
+							"total_prices": sum[1] //购物车内的总金额
+
+						},
+						"success": function(data) {
+							console.log(data);
+							if(data.code === 0) {
+								alert("订单提交成功");
+								location.href = "order.html";
+							}
+						}
+					})
+				})
+
+				//删除地址事件
+				function removeAjax(obj) { //obj为父元素li
+					console.log($(obj).attr("data-id"));
+					var address_id = $(obj).attr("data-id");
+					$.ajax({
+						"url": "http://h6.duchengjiu.top/shop/api_useraddress.php?token=" + localStorage.token + "&status=delete&address_id=" + address_id,
+						"type": "GET",
+						"dataType": "json",
+						"success": function(data) {
+							console.log(data);
+
+						}
+					})
+				}
+
+			})
+			//body背景定位
+			function move(a, b) {
+				var body = document.body;
+				var newleft = 0;
+				var newtop = 0;
+				var timer = null;
+
+				setInterval(function() {
+					newleft += a;
+					newtop += b;
+					if(newleft >= 600 || newleft <= 0) {
+						a = -a
+					}
+					if(newtop > 800|| newtop <= 0) {
+						b = -b
+					}
+					body.style.backgroundPositionX = -newleft + "px";
+					body.style.backgroundPositionY = -newtop + "px";
+				}, 50)
+			}
+			move(2, 2);
+			$(".xj").click(function() {
+				location.href = "index.html"
+			})
+			//二维码效果
+			$("#erwei").mouseenter(function() {
+				$("#ma").css("display", "block");
+			})
+			$("#erwei").mouseleave(function() {
+				$("#ma").css("display", "none");
+			})
+			//返回顶部
+			$("#backtotop").click(function() {
+				$("html,body").animate({ //对象变成了$(“html,body”)
+					"scrollTop": 0 //变成了属性
+				}, 1000);
+
+			})
+		</script>
+	</body>
+
+</html>

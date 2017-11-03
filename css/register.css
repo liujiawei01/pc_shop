@@ -1,0 +1,196 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image: url(../img/bg.jpg);
+	background-position: 0 0 no-repeat;
+}
+
+#Top {
+	width: 95%;
+	height: 100px;
+	/*background-color: #CCCCCC;*/
+	margin: 0 auto;
+	position: relative;
+}
+
+#Top img {
+	width: 200px;
+	height: 100px;
+}
+
+#Top .xj {
+	height: 70px;
+	font-size: 30px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 70px;
+	position: absolute;
+	top: 26px;
+	font-weight: bolder;
+}
+
+#Top ul {
+	width: 350px;
+	list-style: none;
+	position: absolute;
+	left: 830px;
+	top: 45px;
+}
+
+#Top ul li {
+	float: left;
+	font: "微软雅黑";
+	margin-left: 20px;
+}
+
+#Top ul li:hover {
+	background: #CCCCCC;
+}
+
+#box {
+	width: 500px;
+	height: 500px;
+	/*background-color: #CCCCCC;*/
+	position: relative;
+	left: 450px;
+	top: 100px;
+}
+
+#box img {
+	width: 300px;
+	height: 150px;
+	position: absolute;
+	left: 120px;
+	top: 20px;
+}
+
+#box #p1 {
+	position: absolute;
+	left: 100px;
+	top: 150px;
+	font: "微软雅黑";
+	font-size: 16px;
+}
+
+#box #p1 #zh {
+	width: 200px;
+	height: 30px;
+	border: 1px solid #1E90FF;
+	border-radius: 4px;
+}
+
+#box #p2 {
+	position: absolute;
+	top: 220px;
+	left: 100px;
+	font: "微软雅黑";
+	font-size: 16px;
+}
+
+#box #p2 a {
+	margin-left: 15px;
+}
+
+#box #p2 #mima {
+	width: 200px;
+	height: 30px;
+	border: 1px solid #1E90FF;
+	border-radius: 4px;
+}
+
+#box #reg {
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	left: 210px;
+	top: 270px;
+}
+
+.sucess {
+	background-color: greenyellow;
+	color: white;
+	font-size: 15px;
+	display: none;
+}
+
+.error {
+	background-color: red;
+	color: white;
+	font-size: 15px;
+	display: none;
+}
+
+#on {
+	position: absolute;
+	left: 100px;
+	top: 400px;
+	font-size: 25px;
+	font: "微软雅黑";
+	color: #333333 font-weight:bolder;
+}
+
+#imgs {
+	position: absolute;
+	left: 200px;
+	top: 390px;
+}
+
+#imgs img {
+	width: 130px;
+	height: 23px;
+}
+
+#down {
+	width: 1150px;
+	height: 200px;
+	/*	background-color: #EEF1F3;*/
+	position: relative;
+	left: 89px;
+	top: 150px;
+}
+
+#down #erwei {
+	width: 200px;
+	height: 51px;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	font-size: 16px;
+	color: #333333;
+}
+
+#down #erwei img {
+	width: 31px;
+	height: 51px;
+}
+
+#down #ma {
+	width: 140px;
+	height: 140px;
+	display: none;
+	position: absolute;
+	left: 100px;
+	top: -100px
+}
+
+#cart {
+	position: absolute;
+	left: 590px;
+	top: 550px;
+}
+
+#down #xian {
+	position: absolute;
+	left: 480px;
+	top: 30px;
+}
+
+#down p {
+	position: absolute;
+	left: 300px;
+	top: 150px;
+	font-size: 14px;
+}

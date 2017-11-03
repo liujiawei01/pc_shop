@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>仙剑购物</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+	</head>
+
+	<body>
+
+		<div id="Top">
+			<img src="img/3689011044770542070.png" />
+			<a class="xj">仙剑购物</a>
+			<ul>
+				<span class="login">
+					<li ><a href="login.html">登录</a></li>
+				    <li ><a href="register.html">注册</a></li>
+				</span>
+				<div id="lis">
+					<li class="zx">注销</li>
+					<li>
+						<a href="cart.html">购物车</a>
+					</li>
+					<li>我的消息</li>
+				</div>
+
+			</ul>
+
+		</div>
+		<div id="hidden">
+			展开
+		</div>
+		<div id="cebian">
+			<p>
+				<a href="index.html">主页</a>
+			</p>
+			<p>
+				<a href="list.html">列表页</a>
+			</p>
+			<p>
+				<a href="paning.html">分页展示</a>
+			</p>
+		</div>
+		<a class="backtotop" id="backtotop">回到顶部</a>
+		<p class="search">
+			<input type="text" id="str" />
+			<input type="button" id="btn" value="搜索" />
+		</p>
+
+		<div class="carousel" id="carousel">
+			<div class="btns">
+				<a class="leftBtn" id="leftBtn"></a>
+				<a class="rightBtn" id="rightBtn"></a>
+			</div>
+			<div class="imageslist" id="imageslist">
+				<ul>
+					<!--'<li class="first">
+						<a><img src="'+obj.data.thumb+'"  /></a>
+					</li>'-->
+				</ul>
+			</div>
+			<div class="circles" id="circles">
+				<ol>
+
+				</ol>
+			</div>
+		</div>
+		<header>
+
+			<ul id="nav">
+				<!--	<!--'<li><a href="list.html?cat_id='+obj.data[i].cat_id+'">'+obj.data[i].cat_name+'</a></li>'-->
+
+			</ul>
+		</header>
+
+		<section>
+			<ul class="goodsUl" id="goodsUl">
+				<!--'<li><img src="'+ obj.data[i].good_thumb+'"/><p>'+ obj.data[i].good_name+'</p><p>'+obj.data[i].good_desc +'</p><p>'+obj.data[i].price +'</p></li>'
+				<li></li>
+				<li></li>
+				<li></li>-->
+			</ul>
+
+		</section>
+		<div id="down">
+			<div id="erwei">
+				<img src="img/QQ图片20170818184442.png" />
+				<a>iPhone客户端下载</a>
+			</div>
+			<div id="ma">
+				<img src="img/QQ图片20170818185729.png" />
+			</div>
+			<img id="xian" src="img/logo.png" />
+			<p>
+				仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+			</p>
+		</div>
+
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//判断当前用户已登录则显示用户名，否则显示注册登录
+			if(localStorage.getItem("token")) {
+				$(".login").html("您好!亲爱的" + localStorage.getItem("username"));
+			}
+
+			$(".zx").click(function() {
+				localStorage.clear();
+				window.location.href = "login.html";
+
+			})
+
+			//返回顶部
+			$("#backtotop").click(function() {
+				$("html,body").animate({ //对象变成了$(“html,body”)
+					"scrollTop": 0 //变成了属性
+				}, 1000);
+
+			})
+			//二维码效果
+			$("#erwei").mouseenter(function() {
+				$("#ma").css("display", "block");
+			})
+			$("#erwei").mouseleave(function() {
+				$("#ma").css("display", "none");
+			})
+
+			$(function() {
+
+				//主页
+				$.get("http://h6.duchengjiu.top/shop/api_cat.php", function(data) {
+
+						var obj = data;
+						console.log(obj);
+
+						for(var i = 0; i < obj.data.length; i++) {
+							$("#nav").append("<li><a href='list.html?cat_id=" + obj.data[i].cat_id + "'>" + obj.data[i].cat_name + "</a></li>")
+						}
+					}),
+
+					//热门商品
+					$.get("http://h6.duchengjiu.top/shop/api_goods.php", function(data) {
+
+						var obj = data;
+						console.log(obj);
+						for(var i = 0; i < obj.data.length; i++) {
+							$("#goodsUl").append('<li><img src="' + obj.data[i].goods_thumb + '"/><p><a href=detal.html?goods_id=' + obj.data[i].goods_id + '>' + obj.data[i].goods_name + '</a></p><p>' +
+								obj.data[i].goods_desc + '</p><p class="price">￥' + obj.data[i].price + '</p></li>');
+
+						}
+
+						//透明度改变添加盒子
+						$(".goodsUl li").mouseenter(function() {
+							console.log(name)
+							$(this).append("<div id='hezi'></div>");
+
+						})
+						$(".goodsUl li").mouseleave(function() {
+							$(this).children("#hezi").remove();
+						})
+
+						//搜索按钮,实现跳转
+						$("#btn").click(function() {
+							var search = $("#str").val();
+							console.log(search); //253286
+							window.location.href = "detal.html?goods_id" + search;
+						})
+					})
+
+				$.get("http://h6.duchengjiu.top/shop/api_ad.php?position_id=1", function(data) {
+
+					var obj = data;
+					console.log(obj);
+					for(var i = 0; i < obj.data.length; i++) {
+						$(".carousel .imageslist ul").append('<li class="first"><a><img src="' + obj.data[i].url + '"  /></a></li>')
+					}
+
+					var $lis = $("#imageslist ul li");
+
+					//信号量
+					var idx = 0
+					var timer = null;
+					//右按钮添加事件监听
+					$("#rightBtn").click(function() {
+						movecircles();
+						move();
+					})
+
+					//左按钮添加事件监听
+					$("#leftBtn").click(function() {
+						//函数节流
+						if($lis.eq(idx).is(":animated")) {
+							return;
+						}
+
+						//老图淡出
+						$lis.eq(idx).fadeOut(1000);
+
+						//信号量改变
+						idx--;
+						//范围
+						if(idx < 0) {
+							idx = $lis.length - 1;
+						}
+						//movecircles();
+						//新图淡入
+						$lis.eq(idx).fadeIn(1000);
+
+					})
+
+					//自动播放
+					timer = setInterval(function() {
+						//movecircles();
+						move();
+					}, 1000);
+
+					//移入停止
+					$("#carousel").mouseenter(function() {
+						clearInterval(timer);
+					})
+
+					//移出开始
+					$("#carousel").mouseleave(function() {
+						timer = setInterval(function() {
+							//movecircles();
+							move();
+						}, 1000);
+					})
+
+					function move() {
+						//函数节流
+						if($lis.eq(idx).is(":animated")) {
+							return;
+						}
+
+						//老图淡出
+						$lis.eq(idx).fadeOut(1000);
+
+						//信号量改变
+						idx++;
+						//范围
+						if(idx > $lis.length - 1) {
+							idx = 0;
+						}
+
+						//新图淡入
+						$lis.eq(idx).fadeIn(1000);
+
+					}
+
+				})
+
+				function createcircles() {
+					for(var i = 0; i < 8; i++) {
+						$("#circles ol").append("<li>")
+					}
+				}
+				createcircles();
+
+				var $circlesLi = $(".circles ol li")
+				console.log($circlesLi);
+
+				//背景定位
+				function move(a, b) {
+					var body = document.body;
+					var newleft = 0;
+					var newtop = 0;
+					var timer = null;
+
+					setInterval(function() {
+						newleft += a;
+						newtop += b;
+						if(newleft >= 600 || newleft <= 0) {
+							a = -a
+						}
+						if(newtop > 800 || newtop <= 0) {
+							b = -b
+						}
+						body.style.backgroundPositionX = -newleft + "px";
+						body.style.backgroundPositionY = -newtop + "px";
+					}, 50)
+				}
+				move(1, 1);
+
+				//侧边栏
+				$("#hidden").mouseenter(function() {
+					$("#cebian").slideDown(1500);
+				})
+				$("#hidden").mouseleave(function() {
+					$("#cebian").slideUp(1500);
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

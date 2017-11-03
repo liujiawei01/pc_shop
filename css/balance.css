@@ -1,0 +1,380 @@
+body {
+	background-image: url(../img/bg.jpg);
+	background-position: 0 0 no-repeat;
+}
+
+#logo {
+	position: relative;
+	width: 400px;
+	height: 100px;
+	left: 100px;
+	font-size: 25px;
+	color: red;
+	font: "微软雅黑";
+	font-weight: bold;
+}
+
+#logo a {
+	position: absolute;
+	top: 30px;
+	left: 40px;
+}
+
+#logo img {
+	width: 200px;
+	height: 100px;
+}
+
+#tip {
+	margin-left: 140px;
+}
+
+#content {
+	width: 1100px;
+	height: 350px;
+	position: relative;
+	left: 140px;
+	/*background-color: #DCDCDC;*/
+	border: 1px solid #000000;
+}
+
+#consignee {
+	width: 1100px;
+	height: 200px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	/*	background-color: #F5DEB3;*/
+	border-bottom: 1px solid #000000;
+}
+
+#consignee_top {
+	width: 1100px;
+	height: 30px;
+}
+
+#address {
+	margin-left: 880px;
+	cursor: pointer;
+	font: "微软雅黑";
+	font-size: 14px;
+}
+
+#address:hover {
+	font-size: 16px;
+	background-color: yellowgreen;
+}
+
+#shou {
+	margin-left: 20px;
+	font: "微软雅黑";
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+/*#detail {
+				width: 1100px;
+				
+				position: absolute;
+			}*/
+
+#detail #name1 {
+	width: 100px;
+	height: 20px;
+	border: 1px solid blueviolet;
+	text-align: center;
+	line-height: 20px;
+	position: absolute;
+	left: 85px;
+}
+
+#detail #name1:hover {
+	background-color: skyblue;
+	cursor: pointer;
+}
+
+#xinxi {
+	position: absolute;
+	left: 200px;
+}
+
+.address ul {
+	width: 80%;
+	min-height: 300px;
+	margin-top: 20px;
+}
+
+.address ul li {
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #000000;
+}
+
+.address ul li:hover {
+	background: orange;
+}
+
+#pay {
+	width: 1100px;
+	height: 150px;
+	position: absolute;
+	top: 200px;
+}
+
+#pay #way {
+	margin-left: 20px;
+	font: "微软雅黑";
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#pay ul {
+	list-style: none;
+}
+
+#pay ul li {
+	float: left;
+	margin-left: 50px;
+}
+
+#pay ul .lis {
+	width: 100px;
+	height: 20px;
+	border: 1px solid #000000;
+	text-align: center;
+	line-height: 20px;
+}
+
+#pay ul .lis:hover {
+	background-color: skyblue;
+	cursor: pointer;
+}
+
+#pay #more {
+	font-size: 14px;
+	font: "微软雅黑";
+	cursor: pointer;
+}
+
+#sumbit {
+	width: 1100px;
+	height: 200px;
+	/*background-color: #87CEEB*/
+	;
+	position: absolute;
+	left: 148px;
+	border: 1px solid #000000;
+}
+
+#Money {
+	position: absolute;
+	left: 900px;
+	top: 120px;
+}
+
+#order {
+	width: 100px;
+	height: 30px;
+	background-color: red;
+	text-align: center;
+	line-height: 30px;
+	position: absolute;
+	left: 910px;
+	top: 150px;
+	cursor: pointer;
+}
+
+#add {
+	width: 600px;
+	height: 380px;
+	position: absolute;
+	background-color: antiquewhite;
+	left: 400px;
+	top: 150px;
+	background-image: url(../img/bg2.jpg);
+	background-position: 0px 0px;
+	display: none;
+}
+
+#add form {
+	position: absolute;
+	width: 400px;
+	height: 300px;
+	left: 150px;
+	top: 40px;
+	font: "微软雅黑";
+	font-size: 16px;
+}
+
+#add #shouji {
+	margin-left: 32px;
+}
+
+#add #sheng,
+#shi,
+#qu,
+#dizhi {
+	margin-left: 48px;
+}
+
+#add #btn {
+	margin-left: 80px;
+}
+
+#add input {
+	border-radius: 10%;
+	width: 200px;
+	height: 22px;
+}
+
+#add #tou {
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background-color: #B2BBC4;
+	margin-left: 275px;
+	font: "微软雅黑";
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+#add span {
+	width: 30px;
+	height: 30px;
+	background-color: lightskyblue;
+	float: right;
+	cursor: pointer;
+	text-align: center;
+	line-height: 30px;
+}
+
+.active {
+	background: blueviolet;
+}
+
+#consignee #delete {
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	background-color: red;
+	top: 150px;
+}
+
+.remove {
+	float: right;
+	cursor: pointer;
+}
+
+#Top {
+	width: 95%;
+	height: 100px;
+	/*background-color: #CCCCCC;*/
+	margin: 0 auto;
+	position: relative;
+}
+
+#Top img {
+	width: 200px;
+	height: 100px;
+}
+
+#Top .xj {
+	height: 70px;
+	font-size: 30px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 70px;
+	position: absolute;
+	top: 26px;
+	font-weight: bolder;
+}
+
+#Top ul {
+	width: 350px;
+	list-style: none;
+	position: absolute;
+	left: 830px;
+	top: 45px;
+}
+
+#Top ul li {
+	float: left;
+	font: "微软雅黑";
+	margin-left: 20px;
+}
+
+#Top ul li:hover {
+	background: #CCCCCC;
+}
+
+#down {
+	width: 1150px;
+	height: 200px;
+	/*	background-color: #EEF1F3;*/
+	position: relative;
+	left: 89px;
+	top: 200px;
+}
+
+#down #erwei {
+	width: 200px;
+	height: 51px;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	font-size: 16px;
+	color: #333333;
+}
+
+#down #erwei img {
+	width: 31px;
+	height: 51px;
+}
+
+#down #ma {
+	width: 140px;
+	height: 140px;
+	display: none;
+	position: absolute;
+	left: 100px;
+	top: -100px
+}
+
+
+/*#cart {
+				position: absolute;
+				left: 590px;
+				top: 550px;
+			}*/
+
+#down #xian {
+	position: absolute;
+	left: 480px;
+	top: 30px;
+}
+
+#down p {
+	position: absolute;
+	left: 300px;
+	top: 150px;
+	font-size: 14px;
+}
+
+#backtotop {
+	position: fixed;
+	width: 70px;
+	height: 70px;
+	right: 10px;
+	bottom: 30px;
+	background-color: #F5DEB3;
+	text-align: center;
+	line-height: 70px;
+	cursor: pointer;
+	border-radius: 30px;
+	opacity: 0.5;
+}

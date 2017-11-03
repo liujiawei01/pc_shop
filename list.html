@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>列表展示</title>
+		<link rel="stylesheet" type="text/css" href="css/list.css" />
+
+	</head>
+
+	<body>
+		<div id="Top">
+			<img src="img/3689011044770542070.png" />
+			<a class="xj">仙剑购物</a>
+			<ul>
+				<li>
+					<a href="login.html">登录</a>
+				</li>
+				<li>
+					<a href="register.html">注册</a>
+				</li>
+				<li>
+					<a href="cart.html">购物车</a>
+				</li>
+				<li>我的消息</li>
+			</ul>
+		</div>
+
+		<a class="backtotop" id="backtotop">回到顶部</a>
+		<p class="search">
+			<input type="text" id="str" />
+			<input type="button" id="btn" value="搜索" />
+		</p>
+		<div id="hidden">
+			展开
+		</div>
+		<div id="cebian">
+			<p>
+				<a href="index.html">主页</a>
+			</p>
+			<p>
+				<a href="list.html">列表页</a>
+			</p>
+			<p>
+				<a href="paning.html">分页展示</a>
+			</p>
+
+		</div>
+
+		<header>
+			<ul id="nav">
+				<!--'<li><a href="list.html?cat_id=' +obj.data[i].cat_id+ '">' + obj.data[i].cat_name +  '</a></li>'-->
+			</ul>
+		</header>
+
+		<section>
+			<ul class="goodsUl" id="goodsUl">
+				<!--'<li><img src="' +obj.data[i].goods_thumb+ '" /><p>' +obj.data[i].goods_name+ '</p><p>' +obj.data[i].goods_desc+ '</p><p>' +obj.data[i].price+ '</p></li>'-->
+			</ul>
+		</section>
+		<div id="down">
+			<div id="erwei">
+				<img src="img/QQ图片20170818184442.png" />
+				<a>iPhone客户端下载</a>
+			</div>
+			<div id="ma">
+				<img src="img/QQ图片20170818185729.png" />
+			</div>
+			<img id="xian" src="img/logo.png" />
+			<p>
+				仙剑购物公司 版权所有 COPYRulcss © 2017 JOYACT.COM LIMITED. ALL RIGHTS RESERVED.
+			</p>
+		</div>
+
+		<script src="js/jquery-1.12.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+
+				//页面导航；分类列表功能
+				$.get("http://h6.duchengjiu.top/shop/api_cat.php", function(data) {
+					var obj = data;
+					//					console.log(obj);
+
+					for(var i = 0; i < obj.data.length; i++) {
+
+						$("#nav").append('<li><a href="list.html?cat_id=' + obj.data[i].cat_id + '">' + obj.data[i].cat_name + '</a></li>');
+					}
+
+				})
+
+				//通过location.search获取get传参的数据 截取？后面的内容
+				var str = location.search.substr(1);
+				//用分割方法得到 = 号两边内容
+				var catId = str.split("=")
+				//用下标找到id的值
+				console.log(catId[1]);
+
+				$.ajax({
+					"url": "http://h6.duchengjiu.top/shop/api_goods.php",
+					"type": "GET",
+					"data": {
+						"cat_id": catId[1]
+					},
+					"dataType": "json",
+					"success": function(data) {
+						console.log(data)
+						var obj = data;
+						for(var i = 0; i < obj.data.length; i++) {
+
+							$("#goodsUl").append('<li><img src="' + obj.data[i].goods_thumb + '" /><p><a href=detal.html?goods_id=' + obj.data[i].goods_id + '>' + obj.data[i].goods_name + '</a></p><p>' + obj.data[i].goods_desc + '</p><p class="price">￥' + obj.data[i].price + '</p></li>');
+							name = obj.data[i].goods_name
+						}
+
+						//透明度改变添加盒子
+						$(".goodsUl li").mouseenter(function() {
+							console.log(name)
+							$(this).append("<div id='hezi'>" + name + "</div>");
+
+						})
+						$(".goodsUl li").mouseleave(function() {
+							$(this).children("#hezi").remove();
+						})
+
+					}
+				})
+
+			})
+			//背景特效
+			function move(a, b) {
+				var body = document.body;
+				var newleft = 0;
+				var newtop = 0;
+				var timer = null;
+
+				setInterval(function() {
+					newleft += a;
+					newtop += b;
+					if(newleft >= 800 || newleft <= 0) {
+						a = -a
+					}
+					if(newtop > 900 || newtop <= 0) {
+						b = -b
+					}
+					body.style.backgroundPositionX = -newleft + "px";
+					body.style.backgroundPositionY = -newtop + "px";
+				}, 50)
+			}
+			move(2, 2);
+
+			//侧边栏特效
+
+			$("#hidden").mouseenter(function() {
+				$("#cebian").slideDown(1500);
+			})
+			$("#hidden").mouseleave(function() {
+				$("#cebian").slideUp(1500);
+			})
+			//首页跳转
+			$(".xj").click(function() {
+				location.href = "index.html"
+			})
+			//二维码效果
+			$("#erwei").mouseenter(function() {
+				$("#ma").css("display", "block");
+			})
+			$("#erwei").mouseleave(function() {
+				$("#ma").css("display", "none");
+			})
+			//返回顶部
+			$("#backtotop").click(function() {
+				$("html,body").animate({ //对象变成了$(“html,body”)
+					"scrollTop": 0 //变成了属性
+				}, 1000);
+
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,268 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-image: url(../img/bg.jpg);
+	background-position: 0 0;
+}
+
+.shop {
+	position: relative;
+	overflow: hidden;
+	/*margin-left: 42px;*/
+	left: 75px;
+	width: 90%;
+	margin-top: 50px;
+	/*background: skyblue;*/
+}
+
+.shop li {
+	position: relative;
+	float: left;
+	display: block;
+	width: 200px;
+	height: 400px;
+	background-color: #F5F5F5;
+	margin-left: 30px;
+	margin-top: 30px;
+	text-align: center;
+	font-size: 14px;
+	border: 1px solid #A9A9A9;
+	z-index: 1;
+}
+
+.shop li p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
+
+.shop li img {
+	width: 200px;
+}
+
+.price {
+	margin-top: 50px;
+	background: indianred;
+	font-size: 16px;
+	color: white;
+}
+
+.button {
+	position: relative;
+	/*left: 100px;*/
+	top: 100px;
+	width: 1000px;
+	height: 32px;
+	margin: 0 auto;
+}
+
+#ButtonPrev {
+	color: black;
+	display: inline-block;
+	float: left;
+	width: 140px;
+	height: 30px;
+	border: 1px solid gainsboro;
+	background-color: #EEF1F3;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+#ButtonNext {
+	color: black;
+	display: inline-block;
+	float: right;
+	width: 140px;
+	height: 30px;
+	border: 1px solid gainsboro;
+	background-color: #EEF1F3;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.button-center {
+	float: left;
+	overflow: hidden;
+	width: 690px;
+	height: 30px;
+}
+
+#ButtonCenter {
+	float: left;
+	width: 4000px;
+	height: 30px;
+	margin-left: 10px;
+}
+
+#ButtonCenter span {
+	width: 30px;
+	height: 28px;
+	float: left;
+	border: 1px solid #666666;
+	background-color: #EEF1F3;
+	text-align: center;
+	line-height: 28px;
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+#ButtonCenter span.button-center-span {
+	background: firebrick;
+}
+
+#Top {
+	width: 95%;
+	height: 100px;
+	/*background-color: #CCCCCC;*/
+	margin: 0 auto;
+	position: relative;
+}
+
+#Top img {
+	width: 200px;
+	height: 100px;
+}
+
+#Top .xj {
+	height: 70px;
+	font-size: 30px;
+	color: #000000;
+	text-align: center;
+	line-height: 70px;
+	position: absolute;
+	top: 26px;
+	font-weight: bolder;
+	cursor: pointer;
+}
+
+#Top ul {
+	width: 30%;
+	list-style: none;
+	position: absolute;
+	left: 800px;
+	top: 40px;
+}
+
+#Top ul li {
+	float: left;
+	margin-left: 25px;
+}
+
+#Top ul li:hover {
+	background-color: #CCCCCC;
+}
+
+#down {
+	width: 90%;
+	height: 200px;
+	/*background-color: #EEF1F3;*/
+	position: relative;
+	left: 60px;
+	top: 120px
+}
+
+#down #erwei {
+	width: 15%;
+	height: 51px;
+	position: absolute;
+	top: 50px;
+	left: 100px;
+	font-size: 16px;
+	color: #333333;
+}
+
+#down #erwei img {
+	width: 31px;
+	height: 51px;
+}
+
+#down #ma {
+	width: 140px;
+	height: 140px;
+	display: none;
+	position: absolute;
+	left: 100px;
+	top: -100px
+}
+
+#cart {
+	position: absolute;
+	left: 590px;
+	top: 550px;
+}
+
+#down #xian {
+	position: absolute;
+	left: 480px;
+	top: 30px;
+}
+
+#down p {
+	position: absolute;
+	left: 300px;
+	top: 150px;
+	font-size: 14px;
+}
+
+#backtotop {
+	position: fixed;
+	width: 70px;
+	height: 70px;
+	right: 10px;
+	bottom: 30px;
+	background-color: #F5DEB3;
+	text-align: center;
+	line-height: 70px;
+	cursor: pointer;
+	border-radius: 30px;
+	opacity: 0.5;
+}
+
+#hezi {
+	width: 200px;
+	height: 400px;
+	opacity: 0.5;
+	background: black;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+
+#hidden {
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	left: 0;
+	top: 300px;
+	background-color: yellowgreen;
+	border-radius: 20px;
+	z-index: -5px;
+	font-size: 10px;
+	text-align: center;
+	line-height: 30px;
+}
+
+#cebian {
+	width: 70px;
+	height: 350px;
+	position: fixed;
+	left: 0px;
+	top: 200px;
+	background-color: #EEF1F3;
+	display: none;
+}
+
+#cebian p {
+	width: 70px;
+	height: 80px;
+	margin-top: 20px;
+	font-size: 17px;
+	text-align: center;
+	line-height: 80px;
+}
